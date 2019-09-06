@@ -12,6 +12,7 @@ const { confirm } = Modal;
 
 @connect(({contract, loading}) => ({
   data: contract.data,
+  isfetch: contract.isfetch,
   loading: loading.models.contract,
 }))
 class List extends React.Component {
@@ -19,13 +20,15 @@ class List extends React.Component {
   state = {visible:false, item:null};
 
   componentDidMount() {
-    const { dispatch } = this.props;
-    dispatch({
-      type: 'contract/fetch',
-      payload: {
-        current: 1,
-      }
-    });
+    const { dispatch, isfetch } = this.props;
+    if(isfetch) {
+      dispatch({
+        type: 'contract/fetch',
+        payload: {
+          current: 1,
+        }
+      });
+    }
     // this.handleDetailShow = this.handleDetailShow.bind(this.state);
   }
 
@@ -42,6 +45,15 @@ class List extends React.Component {
         current
       }
     })
+  }
+
+  handleEdit = (item) => {
+    const { dispatch } = this.props;
+    dispatch({
+      type: 'contract/handleCurrent',
+      payload: item,
+    });
+    dispatch(routerRedux.push(`/contract/form/${item.id}`));
   }
 
   handleDelete = (item) => {
@@ -80,7 +92,6 @@ class List extends React.Component {
   }
 
   handleDetailShow = () => {
-    console.log(this.state);
     if(!_.isEmpty(this.state.item)){
       return (
         <Descriptions column={2} border>
@@ -149,7 +160,7 @@ class List extends React.Component {
             <div>
               <a title="查看详情" onClick={() => this.handleDetail(item)}><Icon type="eye" style={{fontSize:"16px",color:"#717171"}} /></a>
               &nbsp;&nbsp;
-              <a title="编辑"><Icon type="edit" style={{fontSize:"16px",color:"#717171"}} /></a>
+              <a title="编辑" onClick={() => this.handleEdit(item)}><Icon type="edit" style={{fontSize:"16px",color:"#717171"}} /></a>
               &nbsp;&nbsp;
               <a title="删除" onClick={() => this.handleDelete(item)}><Icon type="delete" style={{fontSize:"16px",color:"#717171"}} /></a>
             </div>

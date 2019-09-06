@@ -107,6 +107,12 @@ export default {
           hideInMenu: true,
         },
         {
+          path: '/contract/form/:id',
+          name: 'formContract',
+          component: './contract/Form',
+          hideInMenu: true,
+        },
+        {
           path: '/employee',
           name: 'employee',
           icon: 'team',

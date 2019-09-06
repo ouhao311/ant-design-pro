@@ -14,7 +14,7 @@ $sqlcount = ' SELECT count(*) FROM '.$tablepre."organization where year=2019";
 $result1=mysqli_query($con,$sqlcount);
 $count = mysqli_fetch_row($result1);
 $data['page']['num'] = (int)$count[0];
-$data['page']['pageno'] = $_GET['pageno'] ? $_GET['pageno'] : 1;
+$data['page']['pageno'] = $_GET['pageno'] ? (int)$_GET['pageno'] : 1;
 $data['page']['pagesize'] = 20;
 $start = (($data['page']['pageno']-1) * $data['page']['pagesize']);
 if ($start == 0) {

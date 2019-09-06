@@ -15,3 +15,10 @@ export async function deleteContract(id) {
   return request(`/contract/delete.php?id=${id}`);
 }
 
+export async function editContract(params) {
+  return request(`/contract/edit.php?id=${params.id}`, {
+    method: 'PUT',
+    data: params.data,
+  })
+}
+
