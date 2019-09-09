@@ -74,6 +74,7 @@ const ContractModel = {
     handleEdit(state, {payload}) {
       const index = state.data.list.findIndex(item => item.id === payload.id);
       state.data.list.splice(index, 1, payload);
+      state.current = {};
     },
 
     handleCurrent(state, {payload}) {
