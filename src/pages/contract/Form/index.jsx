@@ -61,6 +61,10 @@ class FormContract extends React.Component {
 
   handleCancel = () => {
     const { dispatch } = this.props;
+    dispatch({
+      type: 'contract/handleCurrent',
+      payload: {},
+    });
     dispatch(routerRedux.push('/contract'));
   }
   
